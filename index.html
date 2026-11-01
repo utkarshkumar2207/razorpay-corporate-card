@@ -921,12 +921,22 @@
     const textureLoader = new THREE.TextureLoader();
     
     // Exact user front face texture with alpha transparency for corners
-    const frontTexture = textureLoader.load('card_texture_front.png');
+    const frontTexture = textureLoader.load('card_texture_front.png?v=5');
     frontTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    frontTexture.generateMipmaps = true;
+    frontTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    frontTexture.magFilter = THREE.LinearFilter;
+    if (THREE.SRGBColorSpace) frontTexture.colorSpace = THREE.SRGBColorSpace;
+    else frontTexture.encoding = THREE.sRGBEncoding;
 
     // Matching dark back texture with transparent corners
-    const backTexture = textureLoader.load('card_texture_back.png?v=4');
+    const backTexture = textureLoader.load('card_texture_back.png?v=5');
     backTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    backTexture.generateMipmaps = true;
+    backTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    backTexture.magFilter = THREE.LinearFilter;
+    if (THREE.SRGBColorSpace) backTexture.colorSpace = THREE.SRGBColorSpace;
+    else backTexture.encoding = THREE.sRGBEncoding;
 
     // Standard card dimensions (Credit Card aspect ratio ~ 1.553 : 1)
     const cardWidth = 3.62;
