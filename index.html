@@ -903,40 +903,36 @@
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // --- 2. Lighting Setup (Neutral, Clean Studio Lights - No Plastic Sheen) ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
+    // --- 2. Lighting Setup (Neutral, Clean Studio Lights - High-Clarity Highlights) ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
     scene.add(ambientLight);
 
-    // Soft key directional light
-    const keyLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    // Soft key directional light angled to illuminate metallic pin-stripes & EMV chip
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.05);
     keyLight.position.set(3, 4, 6);
     scene.add(keyLight);
 
     // Subtle rim backlight
-    const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    const rimLight = new THREE.DirectionalLight(0xffffff, 0.45);
     rimLight.position.set(-3, -2, 4);
     scene.add(rimLight);
 
     // --- 3. RazorpayX Card Textures & Geometry ---
     const textureLoader = new THREE.TextureLoader();
     
-    // Exact user front face texture with alpha transparency for corners
-    const frontTexture = textureLoader.load('card_texture_front.png?v=5');
+    // Crisp natural texture filtering matching the original vibrant prototype (no mipmap grey-out)
+    const frontTexture = textureLoader.load('card_texture_front.png?v=6');
     frontTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    frontTexture.generateMipmaps = true;
-    frontTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    frontTexture.generateMipmaps = false;
+    frontTexture.minFilter = THREE.LinearFilter;
     frontTexture.magFilter = THREE.LinearFilter;
-    if (THREE.SRGBColorSpace) frontTexture.colorSpace = THREE.SRGBColorSpace;
-    else frontTexture.encoding = THREE.sRGBEncoding;
 
-    // Matching dark back texture with transparent corners
-    const backTexture = textureLoader.load('card_texture_back.png?v=5');
+    // Matching dark back texture
+    const backTexture = textureLoader.load('card_texture_back.png?v=6');
     backTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    backTexture.generateMipmaps = true;
-    backTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    backTexture.generateMipmaps = false;
+    backTexture.minFilter = THREE.LinearFilter;
     backTexture.magFilter = THREE.LinearFilter;
-    if (THREE.SRGBColorSpace) backTexture.colorSpace = THREE.SRGBColorSpace;
-    else backTexture.encoding = THREE.sRGBEncoding;
 
     // Standard card dimensions (Credit Card aspect ratio ~ 1.553 : 1)
     const cardWidth = 3.62;
@@ -951,16 +947,16 @@
       map: frontTexture,
       transparent: true,
       alphaTest: 0.1,
-      roughness: 0.85,
-      metalness: 0.1,
+      roughness: 0.72,
+      metalness: 0.15,
     });
 
     const cardBackMaterial = new THREE.MeshStandardMaterial({
       map: backTexture,
       transparent: true,
       alphaTest: 0.1,
-      roughness: 0.85,
-      metalness: 0.1,
+      roughness: 0.72,
+      metalness: 0.15,
     });
 
     // Rounded rectangle shape matching the card's exact corner radius
