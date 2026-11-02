@@ -162,12 +162,31 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Floating / Reaching Hand under the card */
+    .hero-hand-backdrop {
+      position: absolute;
+      right: 0;
+      bottom: -4%;
+      width: clamp(480px, 48vw, 780px);
+      max-width: 90vw;
+      height: auto;
+      pointer-events: none;
+      z-index: 15;
+      transform-origin: right bottom;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      filter: drop-shadow(0 20px 45px rgba(27, 36, 82, 0.12));
+      user-select: none;
     }
 
     #card-canvas {
       width: 100%;
       height: 100%;
       outline: none;
+      position: relative;
+      z-index: 22;
     }
 
     /* Interactive hint badge */
@@ -620,12 +639,20 @@
         max-width: 185px !important;
         width: 82% !important;
       }
+      .hero-hand-backdrop {
+        right: -8%;
+        bottom: -22%;
+        width: 110vw;
+        max-width: 520px;
+        opacity: 0.85;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Sticky 3D Canvas on the right side -->
   <div class="card-stage-container">
+    <img src="hand.png" alt="" class="hero-hand-backdrop" id="hero-hand" />
     <canvas id="card-canvas"></canvas>
   </div>
 
@@ -1218,6 +1245,14 @@
       cardMesh.rotation.x = Math.sin(elapsedTime * 1.2) * 0.04 + mouse.y * 0.15;
       cardMesh.rotation.y = Math.cos(elapsedTime * 1.0) * 0.04 + mouse.x * 0.2;
       cardMesh.position.y = Math.sin(elapsedTime * 1.5) * 0.06;
+
+      // Parallax & subtle breathing on the hero reaching hand
+      const handEl = document.getElementById('hero-hand');
+      if (handEl) {
+        const floatY = Math.sin(elapsedTime * 1.1) * 6;
+        const floatX = Math.cos(elapsedTime * 0.9) * 4;
+        handEl.style.transform = `translate(${floatX - mouse.x * 12}px, ${floatY - mouse.y * 10}px)`;
+      }
 
       renderer.render(scene, camera);
     }
