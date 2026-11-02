@@ -1186,10 +1186,10 @@
     let elapsedTime = 0;
 
     // Overdamped (zeta > 1.0) coordinated motion controller:
-    // Responsive tracking with a smooth, controlled angular flip speed ceiling
-    const POSE_STIFFNESS = 1.15;
-    const MAX_FLIP_SPEED = 0.68; // rad/s (~39 deg/s max ceiling: brisk & smooth without whipping)
-    const POSE_ACCEL = 5.0;
+    // Snappy, modern tracking with a controlled angular flip speed ceiling
+    const POSE_STIFFNESS = 1.65;
+    const MAX_FLIP_SPEED = 1.05; // rad/s (~60 deg/s max ceiling: brisk, responsive & smooth)
+    const POSE_ACCEL = 6.5;
 
     function animate() {
       requestAnimationFrame(animate);
