@@ -1190,10 +1190,10 @@
     let elapsedTime = 0;
 
     // Overdamped (zeta > 1.0) coordinated motion controller:
-    // Tracks slow scrolling naturally while strictly capping angular flip speed on fast scrolls
-    const POSE_STIFFNESS = 0.78;
-    const MAX_FLIP_SPEED = 0.42; // rad/s (~24 deg/s max ceiling even on instant top-to-bottom scroll)
-    const POSE_ACCEL = 3.5;
+    // Responsive tracking with a smooth, controlled angular flip speed ceiling
+    const POSE_STIFFNESS = 1.15;
+    const MAX_FLIP_SPEED = 0.68; // rad/s (~39 deg/s max ceiling: brisk & smooth without whipping)
+    const POSE_ACCEL = 5.0;
 
     function animate() {
       requestAnimationFrame(animate);
