@@ -165,7 +165,7 @@
       overflow: hidden;
     }
 
-    /* Floating / Reaching Hand under the card */
+    /* Stationary Reaching Hand under the card */
     .hero-hand-backdrop {
       position: absolute;
       right: 0;
@@ -175,8 +175,7 @@
       height: auto;
       pointer-events: none;
       z-index: 15;
-      transform-origin: right bottom;
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: none !important;
       filter: drop-shadow(0 20px 45px rgba(27, 36, 82, 0.12));
       user-select: none;
     }
@@ -1245,14 +1244,6 @@
       cardMesh.rotation.x = Math.sin(elapsedTime * 1.2) * 0.04 + mouse.y * 0.15;
       cardMesh.rotation.y = Math.cos(elapsedTime * 1.0) * 0.04 + mouse.x * 0.2;
       cardMesh.position.y = Math.sin(elapsedTime * 1.5) * 0.06;
-
-      // Parallax & subtle breathing on the hero reaching hand
-      const handEl = document.getElementById('hero-hand');
-      if (handEl) {
-        const floatY = Math.sin(elapsedTime * 1.1) * 6;
-        const floatX = Math.cos(elapsedTime * 0.9) * 4;
-        handEl.style.transform = `translate(${floatX - mouse.x * 12}px, ${floatY - mouse.y * 10}px)`;
-      }
 
       renderer.render(scene, camera);
     }
