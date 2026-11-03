@@ -265,12 +265,17 @@
 
     h1.hero-title {
       font-family: 'Raleway', sans-serif;
-      font-size: clamp(2.1rem, 3.2vw, 3.1rem);
-      line-height: 1.2;
+      font-size: clamp(1.85rem, 2.75vw, 2.75rem);
+      line-height: 1.22;
       font-weight: 400;
       letter-spacing: -0.01em;
       margin-bottom: 1.5rem;
       color: #111111;
+    }
+
+    .hero-title-line {
+      display: inline-block;
+      white-space: nowrap;
     }
 
     .highlight-text {
@@ -566,7 +571,7 @@
         padding-right: 2vw;
       }
       h1.hero-title {
-        font-size: clamp(1.95rem, 2.7vw, 2.6rem);
+        font-size: clamp(1.65rem, 2.3vw, 2.25rem);
       }
       .feature-step-title {
         font-size: clamp(1.75rem, 2.6vw, 2.4rem);
@@ -671,7 +676,10 @@
 
     @media (max-width: 640px) {
       h1.hero-title {
-        font-size: clamp(1.75rem, 6.2vw, 2.15rem);
+        font-size: clamp(1.35rem, 5.2vw, 1.85rem);
+      }
+      .hero-title-line {
+        white-space: normal;
       }
       .story-track {
         padding: 1.5rem 1.25rem 4rem 1.25rem;
@@ -706,8 +714,8 @@
       <!-- STEP 1: HERO / ORIGINAL CONTENT ELEVATED -->
       <section class="story-step" id="step-hero">
         <h1 class="hero-title">
-          Your ambitions are limitless.<br>
-          <span class="highlight-text">Your rewards should be too.</span>
+          <span class="hero-title-line">Your ambitions are limitless.</span><br>
+          <span class="hero-title-line highlight-text">Your rewards should be too.</span>
         </h1>
 
         <p class="hero-desc">
